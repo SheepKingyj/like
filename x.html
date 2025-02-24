@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你喜欢我吗？</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        #likeButton {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #dislikeButton {
+            background-color: #f44336;
+            color: white;
+        }
+        .flower {
+            font-size: 50px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>你喜欢我吗？</h1>
+
+    <button id="likeButton" class="button">喜欢</button>
+    <button id="dislikeButton" class="button">不喜欢</button>
+
+    <div id="flower" class="flower">🌸</div>
+
+    <script>
+        const likeButton = document.getElementById('likeButton');
+        const dislikeButton = document.getElementById('dislikeButton');
+        const flower = document.getElementById('flower');
+
+        dislikeButton.addEventListener('click', () => {
+            // 点击“不喜欢”时，“喜欢”按钮变大
+            const currentSize = parseInt(window.getComputedStyle(likeButton).fontSize);
+            likeButton.style.fontSize = (currentSize + 5) + 'px';
+        });
+
+        likeButton.addEventListener('click', () => {
+            // 点击“喜欢”时，显示花朵
+            flower.style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>
