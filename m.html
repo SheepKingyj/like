@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你喜欢我吗？</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        #likeButton {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #dislikeButton {
+            background-color: #f44336;
+            color: white;
+        }
+        .flower {
+            position: absolute;
+            font-size: 40px;
+            user-select: none;
+        }
+        .message {
+            font-size: 24px;
+            margin-top: 20px;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>你喜欢我吗？</h1>
+
+    <button id="likeButton" class="button">喜欢</button>
+    <button id="dislikeButton" class="button">不喜欢</button>
+
+    <div id="flowerContainer"></div>
+    <div id="angryMessage" class="message">我生气了！</div>
+
+    <script>
+        const likeButton = document.getElementById('likeButton');
+        const dislikeButton = document.getElementById('dislikeButton');
+        const flowerContainer = document.getElementById('flowerContainer');
+        const angeryMessage = document.getElementById('angryMessage');
+
+        let dislikeCount = 0; // 记录“不喜欢”点击次数
+
+        // 花朵的样式列表
+        const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '💐'];
+
+        likeButton.addEventListener('click', () => {
+            // 随机选择一朵花
+            const randomFlower = flowers[Math.floor(Math.random() * flowers.length)];
+
+            // 创建花朵元素
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.textContent = randomFlower;
+
+            // 随机设置花朵的大小
+            const size = Math.floor(Math.random() * 40) + 20; // 大小在 20px 到 60px 之间
+            flower.style.fontSize = `${size}px`;
+
+            // 随机设置花朵的位置
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            flower.style.left = `${x}px`;
+            flower.style.top = `${y}px`;
+
+            // 将花朵添加到页面
+            flowerContainer.appendChild(flower);
+
+            // 点击“喜欢”时，“不喜欢”按钮变小
+            const currentDislikeSize = parseInt(window.getComputedStyle(dislikeButton).fontSize);
+            dislikeButton.style.fontSize = (currentDislikeSize - 5) + 'px';
+        });
+
+        dislikeButton.addEventListener('click', () => {
+            // 点击“不喜欢”时，增加计数
+            dislikeCount++;
+
+            // 每点击三次“不喜欢”，显示生气消息
+            if (dislikeCount % 3 === 0) {
+                angeryMessage.style.display = 'block';
+            } else {
+                angeryMessage.style.display = 'none';
+            }
+
+            // 点击“不喜欢”时，“喜欢”按钮变大
+            const currentLikeSize = parseInt(window.getComputedStyle(likeButton).fontSize);
+            likeButton.style.fontSize = (currentLikeSize + 5) + 'px';
+        });
+    </script>
+
+</body>
+</html>
