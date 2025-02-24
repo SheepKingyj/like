@@ -30,6 +30,11 @@
         .flower {
             font-size: 50px;
             margin-top: 20px;
+        }
+        .message {
+            font-size: 24px;
+            margin-top: 20px;
+            color: red;
             display: none;
         }
     </style>
@@ -41,22 +46,39 @@
     <button id="likeButton" class="button">喜欢</button>
     <button id="dislikeButton" class="button">不喜欢</button>
 
-    <div id="flower" class="flower">🌸</div>
+    <div id="flowerContainer"></div>
+    <div id="angryMessage" class="message">我生气了！</div>
 
     <script>
         const likeButton = document.getElementById('likeButton');
         const dislikeButton = document.getElementById('dislikeButton');
-        const flower = document.getElementById('flower');
+        const flowerContainer = document.getElementById('flowerContainer');
+        const angeryMessage = document.getElementById('angryMessage');
 
-        dislikeButton.addEventListener('click', () => {
-            // 点击“不喜欢”时，“喜欢”按钮变大
-            const currentSize = parseInt(window.getComputedStyle(likeButton).fontSize);
-            likeButton.style.fontSize = (currentSize + 5) + 'px';
-        });
+        let dislikeCount = 0; // 记录“不喜欢”点击次数
 
         likeButton.addEventListener('click', () => {
-            // 点击“喜欢”时，显示花朵
-            flower.style.display = 'block';
+            // 点击“喜欢”时，添加一朵花
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.textContent = '🌸';
+            flowerContainer.appendChild(flower);
+        });
+
+        dislikeButton.addEventListener('click', () => {
+            // 点击“不喜欢”时，增加计数
+            dislikeCount++;
+
+            // 每点击三次“不喜欢”，显示生气消息
+            if (dislikeCount % 3 === 0) {
+                angeryMessage.style.display = 'block';
+            } else {
+                angeryMessage.style.display = 'none';
+            }
+
+            // “喜欢”按钮变大
+            const currentSize = parseInt(window.getComputedStyle(likeButton).fontSize);
+            likeButton.style.fontSize = (currentSize + 5) + 'px';
         });
     </script>
 
